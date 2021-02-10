@@ -1,7 +1,19 @@
-export class Test001 {
-  tmp: bigint = 0n
+import { XRSessionMode, XRSystem } from 'webxr'
 
-  test(val: bigint) {
-    this.tmp = val
+export class Test001 {
+  checkXrSupport(xrSystem: XRSystem, mode: XRSessionMode) {
+    return xrSystem
+      .isSessionSupported(mode)
+      .then((result) => {
+        return result
+      })
+      .catch((reason) => {
+        return reason
+      })
+  }
+
+  requestXrSession(xrSystem: XRSystem) {
+    const sessionInit = {}
+    return xrSystem.requestSession('inline', sessionInit)
   }
 }
